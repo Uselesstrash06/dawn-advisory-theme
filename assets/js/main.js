@@ -1,3 +1,14 @@
+import './jquery-global.js';
+
+import InfiniteScroll from 'infinite-scroll';
+import PhotoSwipe from 'photoswipe';
+import PhotoSwipeUIDefault from 'photoswipe/dist/photoswipe-ui-default';
+import elasticlunr from 'elasticlunr';
+import fitvids from 'fitvids';
+import 'lazysizes';
+
+import './lib/owl.carousel.js';
+
 var html = $('html');
 var body = $('body');
 var timeout;
@@ -8,7 +19,6 @@ var contentOffset = 0;
 var progress = $('.sticky-progress');
 
 $(function () {
-    'use strict';
     subMenu();
     whiteLogo();
     whiteIcon();
@@ -25,7 +35,6 @@ $(function () {
 });
 
 $(window).on('scroll', function () {
-    'use strict';
     if (body.hasClass('post-template')) {
         if (timeout) {
             window.cancelAnimationFrame(timeout);
@@ -35,7 +44,6 @@ $(window).on('scroll', function () {
 });
 
 $(window).on('load', function () {
-    'use strict';
     if (body.hasClass('post-template')) {
         titleOffset = $('.single-title').offset().top;
 
@@ -47,7 +55,6 @@ $(window).on('load', function () {
 });
 
 function sticky() {
-    'use strict';
     st = jQuery(window).scrollTop();
 
     if (titleOffset > 0 && contentOffset > 0) {
@@ -73,7 +80,6 @@ function sticky() {
 }
 
 function subMenu() {
-    'use strict';
     var mainNav = $('.main-nav');
     var separator = mainNav.find('.menu-item[href*="..."]');
 
@@ -107,7 +113,6 @@ function subMenu() {
 }
 
 function whiteLogo() {
-    'use strict';
     if (typeof gh_white_logo != 'undefined') {
         var whiteImage =
             '<img class="logo-image white" src="' + gh_white_logo + '">';
@@ -116,7 +121,6 @@ function whiteLogo() {
 }
 
 function whiteIcon() {
-    'use strict';
     if (typeof gh_white_icon != 'undefined') {
         var whiteImage =
             '<img class="cover-icon-image white" src="' + gh_white_icon + '">';
@@ -125,7 +129,6 @@ function whiteIcon() {
 }
 
 function featured() {
-    'use strict';
     $('.featured-feed').owlCarousel({
         dots: false,
         margin: 30,
@@ -149,11 +152,8 @@ function featured() {
 }
 
 function pagination() {
-    'use strict';
-    var wrapper = $('.post-feed');
-
     if (body.hasClass('paged-next')) {
-        wrapper.infiniteScroll({
+        new InfiniteScroll('.post-feed', {
             append: '.feed-card',
             button: '.infinite-scroll-button',
             debug: false,
@@ -167,12 +167,10 @@ function pagination() {
 }
 
 function video() {
-    'use strict';
-    $('.single-content').fitVids();
+    fitvids('.single-content');
 }
 
 function gallery() {
-    'use strict';
     var images = document.querySelectorAll('.kg-gallery-image img');
     images.forEach(function (image) {
         var container = image.closest('.kg-gallery-image');
@@ -192,7 +190,6 @@ function gallery() {
 }
 
 function table() {
-    'use strict';
     if (body.hasClass('post-template') || body.hasClass('page-template')) {
         var tables = $('.single-content').find('.table');
         tables.each(function (_, table) {
@@ -218,7 +215,6 @@ function table() {
 }
 
 function toc() {
-    'use strict';
     if (body.hasClass('post-template')) {
         var output = '';
         var toggle = $('.sticky-toc-button');
@@ -266,7 +262,6 @@ function toc() {
 }
 
 function modal() {
-    'use strict';
     var modalOverlay = $('.modal-overlay');
     var modal = $('.modal');
     var modalInput = $('.modal-input');
@@ -304,8 +299,6 @@ function modal() {
 }
 
 function search() {
-    'use strict';
-
     var searchInput = $('.search-input');
     var searchButton = $('.search-button');
     var searchResult = $('.search-result');
@@ -420,14 +413,12 @@ function search() {
 }
 
 function burger() {
-    'use strict';
     $('.burger').on('click', function () {
         body.toggleClass('menu-opened');
     });
 }
 
 function theme() {
-    'use strict';
     var toggle = $('.js-theme');
     var toggleText = toggle.find('.theme-text');
 
@@ -534,7 +525,7 @@ function pswp(container, element, trigger, caption, isGallery) {
 
         gallery = new PhotoSwipe(
             pswpElement,
-            PhotoSwipeUI_Default,
+            PhotoSwipeUIDefault,
             items,
             options
         );
